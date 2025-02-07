@@ -1,11 +1,22 @@
 ---
-import Welcome from '../components/Welcome.astro';
 import Layout from '../layouts/Layout.astro';
+import '../styles/global.css';
+import Hero from '../components/Hero.astro';
+import LivePlayer from '../components/LivePlayer';
 
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+import { YouTube } from 'astro-embed';
 ---
 
 <Layout>
-	<Welcome />
+    <Hero />
+    <LivePlayer client:visible />
+    <div class='rounded-lg p-6'>
+        <h2 class='text-white text-2xl font-bold mb-4 mx-auto text-center'>
+            Mira nuestra trasmisión en vivo
+        </h2>
+        <YouTube
+            class='rounded-xl mx-auto'
+            id='https://youtu.be/yDg4D4DLH78?si=D1PElB0T5q7loWzh'
+        />
+    </div>
 </Layout>
