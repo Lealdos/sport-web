@@ -1,28 +1,81 @@
-import { useState } from 'react';
-import { Howl, Howler } from 'howler';
+import { useState, useRef } from 'react';
+import { Howl } from 'howler';
 
-export default function LivePlayer() {
-    const sound = new Howl({
-        src: [
-            'https://stream-173.zeno.fm/4kprry7s3ehvv?zt=eyJhbGciOiJIUzI1NiJ9.eyJzdHJlYW0iOiI0a3Bycnk3czNlaHZ2IiwiaG9zdCI6InN0cmVhbS0xNzMuemVuby5mbSIsInJ0dGwiOjUsImp0aSI6InZBMld2MWxCU3JPdDFCMFAzUEp6YVEiLCJpYXQiOjE3Mzg5MDA0NTIsImV4cCI6MTczODkwMDUxMn0.Qh-QIfXXOwDcmIBasSpDlvWJiiHC0LYIZTztT_gOwiU',
-        ],
-        html5: true,
+const URL_STREAM =
+    'https://stream-59.zeno.fm/4kprry7s3ehvv?zs=kDFMYekOS6u3My1hsQNOGw/currentsong?sid=1';
+
+const useHowl = function ({ src }: { src: string }) {
+    const [isPlaying, setIsPlaying] = useState(false);
+    const [isMuted, setIsMuted] = useState(false);
+    const [volumenLevel, setVolumenLevel] = useState(1);
+
+    const howlRef = useRef<Howl>(
+        new Howl({
+            src,
+            html5: true,
+            onend: () => {
+                setIsPlaying(false);
+            },
+            onplay: () => {
+                setIsPlaying(true);
+            },
+            onpause: () => {
+                setIsPlaying(false);
+            },
+            onstop: () => {
+                setIsPlaying(false);
+            },
+            onvolume: () => {
+                setVolumenLevel(howlRef.current.volume() ?? 0);
+            },
+        })
+    );
+
+    return {
+        play: (spriteOrId?: string | number): number => {
+            return howlRef.current.play(spriteOrId);
+        },
+        pause: (id?: number): Howl => {
+            return howlRef.current.pause(id);
+        },
+        stop: (id?: number): Howl => {
+            return howlRef.current.stop(id);
+        },
+        mute: (muted: boolean, id?: number): Howl => {
+            setIsMuted(muted);
+            return howlRef.current.mute(muted, id);
+        },
+        volume: (idOrSetVolume: number): number | Howl => {
+            return howlRef.current.volume(idOrSetVolume);
+        },
+
+        isPlaying,
+        isMuted,
+        volumenLevel,
+    };
+};
+
+export function LivePlayer() {
+    const { isPlaying, isMuted, play, stop, mute } = useHowl({
+        src: URL_STREAM,
     });
 
-    const [isPlaying, setIsPlaying] = useState(false);
-    const onClick = () => {
+    const HandlerPlayStream = () => {
         if (isPlaying) {
-            console.log(isPlaying);
-            sound.pause();
-            setIsPlaying(false);
+            stop();
         } else {
-            console.log(isPlaying);
-            sound.play();
-            setIsPlaying(true);
+            play();
         }
     };
-    console.log(sound);
-    console.log(isPlaying);
+
+    const onVolumenChange = () => {
+        if (isMuted) {
+            mute(false);
+        } else {
+            mute(true);
+        }
+    };
+
     return (
         <section className=' py-10 px-4'>
             <div className='max-w-sm mx-auto bg-blue-900  p-5 rounded-lg shadow-sm shadow-red-900 inset-shadow-red-500'>
@@ -31,8 +84,9 @@ export default function LivePlayer() {
                 </h2>
                 <div className='flex items-center justify-center space-x-4'>
                     <button
-                        onClick={() => onClick()}
-                        className='bg-red-700 text-white p-3 rounded-full hover:bg-red-600 transition-colors shadow-2xl'
+                        onClick={HandlerPlayStream}
+                        className='bg-red-700 text-white p-3 rounded-full hover:bg-red-600 transition-colors shadow-2xl
+                        disabled:bg-gray-400 disabled:text-gray-500 disabled:shadow-none'
                         aria-label={isPlaying ? 'Pause' : 'Play'}
                     >
                         {isPlaying ? (
@@ -54,11 +108,24 @@ export default function LivePlayer() {
                             ? 'Escuchando trasmisión'
                             : 'Click para escuchar'}
                     </div>
-                    <img
-                        src='/volume_up.svg'
-                        alt='Logo'
-                        className='w-10 h-10'
-                    />
+                    <button
+                        onClick={onVolumenChange}
+                        aria-label={isMuted ? 'Unmute' : 'Mute'}
+                    >
+                        {isMuted ? (
+                            <img
+                                src='/volume_off.svg'
+                                alt='Mute'
+                                className='w-10 h-10'
+                            />
+                        ) : (
+                            <img
+                                src='/volume_up.svg'
+                                alt='volumen up'
+                                className='w-10 h-10'
+                            />
+                        )}
+                    </button>
                 </div>
             </div>
         </section>
