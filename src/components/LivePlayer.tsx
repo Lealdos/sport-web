@@ -73,7 +73,7 @@ export function LivePlayer() {
 
     return (
         <section className=' py-10 px-4'>
-            <div className='max-w-sm mx-auto bg-blue-900  p-5 rounded-lg shadow-sm shadow-red-900 inset-shadow-red-500'>
+            <div className='max-w-sm mx-auto bg-blue-700 p-5 rounded-lg shadow-md shadow-red-900 inset-shadow-red-500'>
                 <h2 className='text-2xl font-bold mb-4 text-center text-white'>
                     Escuchar en vivo
                 </h2>
