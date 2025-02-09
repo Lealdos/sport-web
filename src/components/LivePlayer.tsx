@@ -7,7 +7,6 @@ const URL_STREAM =
 const useHowl = function ({ src }: { src: string }) {
     const [isPlaying, setIsPlaying] = useState(false);
     const [isMuted, setIsMuted] = useState(false);
-    const [volumenLevel, setVolumenLevel] = useState(1);
 
     const howlRef = useRef<Howl>(
         new Howl({
@@ -24,9 +23,6 @@ const useHowl = function ({ src }: { src: string }) {
             },
             onstop: () => {
                 setIsPlaying(false);
-            },
-            onvolume: () => {
-                setVolumenLevel(howlRef.current.volume() ?? 0);
             },
         })
     );
@@ -51,7 +47,6 @@ const useHowl = function ({ src }: { src: string }) {
 
         isPlaying,
         isMuted,
-        volumenLevel,
     };
 };
 
