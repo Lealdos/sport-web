@@ -37,12 +37,16 @@ const useHowl = function ({ src }: { src: string }) {
         stop: (id?: number): Howl => {
             return howlRef.current.stop(id);
         },
-        mute: (muted: boolean, id?: number): Howl => {
-            setIsMuted(muted);
+        mute: (muted = true, id?: number): Howl => {
+            setIsMuted(true);
             return howlRef.current.mute(muted, id);
         },
         volume: (idOrSetVolume: number): number | Howl => {
             return howlRef.current.volume(idOrSetVolume);
+        },
+        unmute: (muted = false, id?: number): Howl => {
+            setIsMuted(false);
+            return howlRef.current.mute(muted, id);
         },
 
         isPlaying,
@@ -51,7 +55,7 @@ const useHowl = function ({ src }: { src: string }) {
 };
 
 export function LivePlayer() {
-    const { isPlaying, isMuted, play, stop, mute } = useHowl({
+    const { isPlaying, isMuted, play, stop, mute, unmute } = useHowl({
         src: URL_STREAM,
     });
 
@@ -65,7 +69,7 @@ export function LivePlayer() {
 
     const onVolumenChange = () => {
         if (isMuted) {
-            mute(false);
+            unmute();
         } else {
             mute(true);
         }
