@@ -39,7 +39,7 @@ export const YouTubeLive = () => {
             src={`https://www.youtube.com/embed/${videoId}`}
             allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture'
             allowFullScreen
-            className='mx-auto rounded'
+            className='mx-auto rounded h-80 w-96'
         ></iframe>
     );
 };
