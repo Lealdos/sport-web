@@ -1,5 +1,5 @@
-const YOUTUBE_CHANNEL_ID = 'UCYp336udlILXiGcQ-fGGvyg';
-const API_KEY = import.meta.env.GOOGLE_API_KEY; //modificar llave keys en .env
+const YOUTUBE_CHANNEL_ID = 'UCGoxBYpSPNXA3sM4CKTEq3A';
+const API_KEY = import.meta.env.PUBLIC_GOOGLE_API_KEY; //modificar llave keys en .env
 
 export async function fetchYoutubeVideos() {
     const liveUrl = `https://www.googleapis.com/youtube/v3/search?part=snippet&channelId=${YOUTUBE_CHANNEL_ID}&eventType=live&type=video&key=${API_KEY}`;
@@ -22,5 +22,3 @@ export async function fetchYoutubeVideos() {
         return error;
     }
 }
-
-export const YoutubeVideoID = await fetchYoutubeVideos();
