@@ -3,8 +3,7 @@ import Layout from '../layouts/Layout.astro';
 import '../styles/global.css';
 import Hero from '../components/Hero.astro';
 import { LivePlayer } from '../components/LivePlayer';
-import { YouTubeLive } from '../components/YoutubeLive';
-import { YouTube } from 'astro-embed';
+import { YouTubeLive } from '../components/Youtubelive';
 ---
 
 <Layout>
@@ -14,11 +13,6 @@ import { YouTube } from 'astro-embed';
         <h2 class='text-white text-2xl font-bold mb-4 mx-auto text-center'>
             Mira nuestra trasmisión en vivo
         </h2>
-        <YouTubeLive client:load />
-
-        <!-- <YouTube
-            class='rounded-xl mx-auto'
-            id='https://youtu.be/yDg4D4DLH78?si=D1PElB0T5q7loWzh'
-        /> -->
+        <YouTubeLive client:visible />
     </div>
 </Layout>
