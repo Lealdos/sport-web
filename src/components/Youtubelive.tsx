@@ -1,45 +1,45 @@
 import { useState, useEffect } from 'react';
 
-const YOUTUBE_CHANNEL_ID = 'UCYp336udlILXiGcQ-fGGvyg';
-const API_KEY = import.meta.env.VITE_GOOGLE_API_KEY;
-
-async function fetchYoutubeVideos() {
-    const liveUrl = `https://www.googleapis.com/youtube/v3/search?part=snippet&channelId=${YOUTUBE_CHANNEL_ID}&eventType=live&type=video&key=${API_KEY}`;
-
-    const latestUrl = `https://www.googleapis.com/youtube/v3/search?part=snippet&channelId=${YOUTUBE_CHANNEL_ID}&order=date&type=video&maxResults=1&key=${API_KEY}`;
-
-    console.log('prueba', liveUrl);
-    try {
-        let YoutubeVideo = await fetch(liveUrl);
-        let YoutubeVideoIsLiveJson = await YoutubeVideo.json();
-        if (YoutubeVideo.ok && YoutubeVideoIsLiveJson.items.length > 0) {
-            let YoutubeVideoId = YoutubeVideoIsLiveJson.items[0].id.videoId;
-            return YoutubeVideoId;
-        }
-        YoutubeVideo = await fetch(latestUrl);
-        return (await YoutubeVideo.json()).items[0].id.videoId;
-    } catch (error) {
-        console.error('Error fetching YouTube data:', error);
-        return error;
-    }
-}
+import { fetchYoutubeVideos } from '../utils/fetchYoutubeVideo';
 
 export const YouTubeLive = () => {
     const [videoId, setVideoId] = useState(null);
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        fetchYoutubeVideos().then(setVideoId);
+        const leadID = async () => {
+            const testing = await fetchYoutubeVideos();
+            setVideoId(testing);
+            setLoading(false);
+        };
+        leadID();
     }, []);
 
-    if (!videoId) return <p>Error cargando el video</p>;
-
     return (
-        <iframe
-            title={`YouTube video: ${videoId}`}
-            src={`https://www.youtube.com/embed/${videoId}`}
-            allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture'
-            allowFullScreen
-            className='mx-auto rounded h-80 w-96'
-        ></iframe>
+        <>
+            {loading ? (
+                <output className='mx-auto flex items-center justify-center h-56 max-w-sm bg-gray-300 rounded-lg animate-pulse dark:bg-gray-700'>
+                    <svg
+                        className='w-10 h-10 text-gray-200 dark:text-gray-600'
+                        aria-hidden='true'
+                        xmlns='http://www.w3.org/2000/svg'
+                        fill='currentColor'
+                        viewBox='0 0 16 20'
+                    >
+                        <path d='M5 5V.13a2.96 2.96 0 0 0-1.293.749L.879 3.707A2.98 2.98 0 0 0 .13 5H5Z' />
+                        <path d='M14.066 0H7v5a2 2 0 0 1-2 2H0v11a1.97 1.97 0 0 0 1.934 2h12.132A1.97 1.97 0 0 0 16 18V2a1.97 1.97 0 0 0-1.934-2ZM9 13a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-2a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v2Zm4 .382a1 1 0 0 1-1.447.894L10 13v-2l1.553-1.276a1 1 0 0 1 1.447.894v2.764Z' />
+                    </svg>
+                    <span className='sr-only'>Loading...</span>
+                </output>
+            ) : (
+                <iframe
+                    title={`YouTube video: ${videoId}`}
+                    src={`https://www.youtube.com/embed/${videoId}`}
+                    allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture'
+                    allowFullScreen
+                    className='mx-auto rounded w-96 h-60'
+                ></iframe>
+            )}
+        </>
     );
 };
