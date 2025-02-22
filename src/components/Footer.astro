@@ -17,22 +17,29 @@ const SocialMedia = [
 ];
 ---
 
-<footer class='bg-blue-950 shadow-fuchsia-800 text-white py-8'>
+<footer class='bg-blue-950 shadow-fuchsia-800 text-white py-2'>
     <div class='container mx-auto text-center'>
-        <div class='flex justify-center space-x-4'>
-            {
-                SocialMedia.map((media) => (
-                    <a
-                        aria-label={media.label}
-                        href={media.url}
-                        target='_blank'
-                        rel='noreferrer'
-                        class='flex gap-2 items-center'
-                    >
-                        <img src={media.icon} alt='Logo' class={media.style} />
-                    </a>
-                ))
-            }
+        <div class='flex flex-col justify-center items-center space-x-4'>
+            <div class='text-xl'>Síguenos en nuestras redes sociales</div>
+            <div class='flex gap-4 my-2'>
+                {
+                    SocialMedia.map((media) => (
+                        <a
+                            aria-label={media.label}
+                            href={media.url}
+                            target='_blank'
+                            rel='noreferrer'
+                            class='flex gap-2 items-center'
+                        >
+                            <img
+                                src={media.icon}
+                                alt='Logo'
+                                class={media.style}
+                            />
+                        </a>
+                    ))
+                }
+            </div>
         </div>
         <p class='mt-4'>&copy; 2012 Sports 96.7FM All rights reserved.</p>
     </div>
