@@ -21,7 +21,7 @@ export const YouTubeLive = () => {
                 Miranos en Youtube
             </h2>
             {loading ? (
-                <output className='mx-auto flex items-center justify-center w-96 h-60 max-w-sm bg-gray-300 rounded-lg animate-pulse dark:bg-gray-700'>
+                <output className='mx-auto flex items-center justify-center w-80 md:w-96 h-60 max-w-sm bg-gray-300 rounded-lg animate-pulse dark:bg-gray-700'>
                     <svg
                         className='w-10 h-10 text-gray-200 dark:text-gray-600'
                         aria-hidden='true'
@@ -40,7 +40,7 @@ export const YouTubeLive = () => {
                     src={`https://www.youtube.com/embed/${videoId}`}
                     allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture'
                     allowFullScreen
-                    className='mx-auto rounded w-96 h-60'
+                    className='mx-auto rounded w-80 md:w-96 h-60'
                 ></iframe>
             )}
         </div>
