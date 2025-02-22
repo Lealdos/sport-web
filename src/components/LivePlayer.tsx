@@ -76,8 +76,8 @@ export function LivePlayer() {
     };
 
     return (
-        <section className=' py-10 px-4'>
-            <div className='max-w-sm mx-auto bg-blue-700 p-5 rounded-lg shadow-md shadow-red-900 inset-shadow-red-500'>
+        <section className=' py-10 px-4 '>
+            <div className='max-w-sm mx-auto bg-blue-700 p-5 rounded-lg shadow-md shadow-red-900 inset-shadow-red-500 animate-fade animate-duration-[800ms] animate-ease-in'>
                 <h2 className='text-2xl font-bold mb-4 text-center text-white'>
                     Escuchar en vivo
                 </h2>
@@ -90,7 +90,7 @@ export function LivePlayer() {
                     >
                         {isPlaying ? (
                             <img
-                                src='/pause_circle.svg'
+                                src='/icons/pause_circle.svg'
                                 alt='Pause'
                                 className='w-10 h-10'
                             />
