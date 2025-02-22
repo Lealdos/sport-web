@@ -18,7 +18,7 @@ export const YouTubeLive = () => {
     return (
         <div className='mx-auto flex flex-col items-center justify-center '>
             <h2 className='text-white text-2xl font-bold mb-4 mx-auto text-center'>
-                Miranos en Youtube
+                Encuéntralos en Youtube
             </h2>
             {loading ? (
                 <output className='mx-auto flex items-center justify-center w-80 md:w-96 h-60 max-w-sm bg-gray-300 rounded-lg animate-pulse dark:bg-gray-700'>
