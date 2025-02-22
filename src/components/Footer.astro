@@ -1,21 +1,39 @@
+---
+const SocialMedia = [
+    {
+        name: 'WhatsApp',
+        url: 'https://wa.me/584249309508',
+        icon: '/logo_whatsapp.svg',
+        label: 'Contáctenos al WhatsApp',
+        style: 'h-6 w-6 bg-green-400 rounded-full',
+    },
+    {
+        name: 'Instagram',
+        url: 'https://www.instagram.com/sports96.7/',
+        icon: '/Instagram_logo.svg',
+        label: 'Síguenos en Instagram',
+        style: 'h-6 w-6 bg-black rounded-lg',
+    },
+];
+---
+
 <footer class='bg-blue-950 shadow-fuchsia-800 text-white py-8'>
     <div class='container mx-auto text-center'>
-        <p class='mb-4'>&copy; 2012 Sports 96.7FM All rights reserved.</p>
         <div class='flex justify-center space-x-4'>
-            <a
-                aria-label='Chat on WhatsApp'
-                href='https://wa.me/584249309508'
-                target='_blank'
-                rel='noreferrer'
-                class='flex gap-2 items-center'
-            >
-                Contáctenos al WhatsApp
-            </a>
-            <img
-                src='/logo_whatsapp.svg'
-                alt='Logo'
-                class='h-6 w-6 bg-green-400 rounded-full'
-            />
+            {
+                SocialMedia.map((media) => (
+                    <a
+                        aria-label={media.label}
+                        href={media.url}
+                        target='_blank'
+                        rel='noreferrer'
+                        class='flex gap-2 items-center'
+                    >
+                        <img src={media.icon} alt='Logo' class={media.style} />
+                    </a>
+                ))
+            }
         </div>
+        <p class='mt-4'>&copy; 2012 Sports 96.7FM All rights reserved.</p>
     </div>
 </footer>
