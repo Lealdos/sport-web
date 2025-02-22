@@ -96,7 +96,7 @@ export function LivePlayer() {
                             />
                         ) : (
                             <img
-                                src='/play_circle.svg'
+                                src='/icons/play_circle.svg'
                                 alt='Play'
                                 className='w-10 h-10'
                             />
@@ -113,13 +113,13 @@ export function LivePlayer() {
                     >
                         {isMuted ? (
                             <img
-                                src='/volume_off.svg'
+                                src='/icons/volume_off.svg'
                                 alt='Mute'
                                 className='w-10 h-10'
                             />
                         ) : (
                             <img
-                                src='/volume_up.svg'
+                                src='/icons/volume_up.svg'
                                 alt='volumen up'
                                 className='w-10 h-10'
                             />
